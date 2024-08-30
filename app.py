@@ -56,7 +56,8 @@ if st.button("Generate PDF"):
     main_pdf = 'out.pdf'
     
     # Run the function to generate the main PDF
-    loop = asyncio.ProactorEventLoop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     loop.run_until_complete(html_to_pdf_with_margins(html_pth, main_pdf))
 
     total_pages = get_pdf_page_count(main_pdf)
