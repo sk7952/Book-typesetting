@@ -3,6 +3,7 @@ from openai import OpenAI
 import json
 import nest_asyncio
 from dotenv import load_dotenv
+import streamlit as st
 import asyncio
 from playwright.async_api import async_playwright
 import PyPDF2
@@ -14,8 +15,7 @@ def get_response(chapter):
     # Set up OpenAI API client
     client = OpenAI(
         # This is the default and can be omitted
-        load_dotenv()
-        api_key = os.getenv("Openai_api")
+        api_key = st.secrets["Openai_api"]
     )
 
     # Set up OpenAI model and prompt
