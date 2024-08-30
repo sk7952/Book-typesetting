@@ -105,8 +105,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-json-logger==2.0.7
 pytz==2024.1
-pywin32==305.1
-pywinpty==2.0.10
 PyYAML==6.0.1
 pyzmq==25.1.2
 referencing==0.30.2
@@ -142,4 +140,3 @@ wcwidth==0.2.5
 webencodings==0.5.1
 websocket-client==1.8.0
 wheel==0.43.0
-win-inet-pton==1.1.0
