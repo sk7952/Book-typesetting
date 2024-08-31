@@ -1,9 +1,8 @@
 import os
+import streamlit as st
 from openai import OpenAI
 import json
 import nest_asyncio
-from dotenv import load_dotenv
-import streamlit as st
 import asyncio
 from playwright.async_api import async_playwright
 import PyPDF2
@@ -13,9 +12,11 @@ from pypdf import PdfReader, PdfWriter
 
 def get_response(chapter):
     # Set up OpenAI API client
+    
+    api_key = st.secrets["Openai_api"]
     client = OpenAI(
         # This is the default and can be omitted
-        api_key = st.secrets["Openai_api"]
+        api_key = api_key
     )
 
     # Set up OpenAI model and prompt
