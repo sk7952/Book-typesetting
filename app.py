@@ -8,7 +8,7 @@ import os
 
 
 os.system('playwright install')
-os.system('playwright install-deps')
+# os.system('playwright install-deps')
 
 # Create a ThreadPoolExecutor to run the async function
 executor = ThreadPoolExecutor()
