@@ -4,6 +4,11 @@ from playwright.async_api import async_playwright
 import asyncio
 from main import get_response, save_response, get_pdf_page_count, create_overlay_pdf, overlay_headers_footers
 from concurrent.futures import ThreadPoolExecutor
+import os
+
+
+os.system('playwright install')
+os.system('playwright install-deps')
 
 # Create a ThreadPoolExecutor to run the async function
 executor = ThreadPoolExecutor()
