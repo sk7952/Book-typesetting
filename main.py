@@ -9,11 +9,7 @@ import PyPDF2
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.pdfgen import canvas
 from pypdf import PdfReader, PdfWriter
-import subprocess
 
-if not os.path.exists('/home/appuser/.cache/ms-playwright/chromium-1129/chrome-linux/chrome'):
-    st.write("Installing Playwright browsers...")
-    subprocess.run(["python", "-m", "playwright", "install"], check=True)
 
 def get_response(chapter):
     # Set up OpenAI API client
