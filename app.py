@@ -4,11 +4,11 @@ from playwright.async_api import async_playwright
 import asyncio
 from main import get_response, save_response, get_pdf_page_count, create_overlay_pdf, overlay_headers_footers
 from concurrent.futures import ThreadPoolExecutor
+from reportlab.pdfgen import canvas
 import os
 
-
+# Install Playwright if needed
 os.system('playwright install')
-# os.system('playwright install-deps')
 
 # Create a ThreadPoolExecutor to run the async function
 executor = ThreadPoolExecutor()
@@ -28,8 +28,6 @@ async def html_to_pdf_with_margins(html_file, output_pdf):
 
         pdf_options = {
             'path': output_pdf,
-
-            
             'format': 'A4',
             'margin': {
                 'top': '70px',
@@ -50,7 +48,16 @@ st.title("Chapter PDF Generator")
 Chapter_text = st.text_input('Enter the Chapter text:')
 author_name = st.text_input('Enter the Author Name:')
 book_name = st.text_input('Enter the Book Name:')
-font_style = st.text_input('Enter the Font Style:')
+
+# Dropdown menu for font selection
+fonts = [
+    'Courier', 'Courier-Bold', 'Courier-BoldOblique', 'Courier-Oblique',
+    'Helvetica', 'Helvetica-Bold', 'Helvetica-BoldOblique', 'Helvetica-Oblique',
+    'Times-Roman', 'Times-Bold', 'Times-BoldItalic', 'Times-Italic',
+    'Symbol', 'ZapfDingbats'
+]
+font_style = st.selectbox('Select Font Style:', fonts)
+
 First_page_no = st.number_input('Enter the First Page Number:', min_value=0, max_value=1000, step=1)
 
 # Button to generate PDF
@@ -68,7 +75,7 @@ if st.button("Generate PDF"):
     total_pages = get_pdf_page_count(main_pdf)
     overlay_pdf = "overlay.pdf"
     
-    # Create the overlay PDF
+    # Create the overlay PDF with selected font
     create_overlay_pdf(overlay_pdf, total_pages, First_page_no, book_name, author_name, font_style)
     
     final_pdf = 'final.pdf'
