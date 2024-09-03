@@ -60,6 +60,8 @@ fonts = [
 font_style = st.selectbox('Select Font Style:', fonts)
 
 First_page_no = st.number_input('Enter the First Page Number:', min_value=0, max_value=1000, step=1)
+options = ['Left', 'Right']
+first_page_position = st.selectbox('Select First Page Position:', options)
 
 # Button to generate PDF
 if st.button("Generate PDF"):
@@ -77,7 +79,7 @@ if st.button("Generate PDF"):
     overlay_pdf = "overlay.pdf"
     
     # Create the overlay PDF with selected font
-    create_overlay_pdf(overlay_pdf, total_pages, First_page_no, book_name, author_name, font_style)
+    create_overlay_pdf(overlay_pdf, total_pages, First_page_no, book_name, author_name, font_style, first_page_position)
     
     final_pdf = 'final.pdf'
     
