@@ -481,7 +481,7 @@ This is the sample HTML : <!DOCTYPE html>
     <style>
         body {
             font-family: 'Times New Roman', serif;
-            font-size: 16px;
+            font-size: <<fontsize>>;
             line-height: 1.3;
             text-align: justify;
             margin: 2rem 4rem;
@@ -916,6 +916,7 @@ This is the sample HTML : <!DOCTYPE html>
     Here is the target chapter: <<CHAPTER_TEXT>>
 """
     prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter)
+	prompt = prompt_template.replace("<<fontsize>>", font_size + "px")
     chat_completion = client.chat.completions.create(
         messages=[
             {
