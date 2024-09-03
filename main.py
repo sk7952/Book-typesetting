@@ -969,11 +969,11 @@ def get_pdf_page_count(pdf_file):
         reader = PyPDF2.PdfReader(f)
         return len(reader.pages)
     
-def create_overlay_pdf(overlay_pdf, total_pages, first_page_number, book_name, author_name, font):
+def create_overlay_pdf(overlay_pdf, total_pages, first_page_number, book_name, author_name, font, first_page_position="right"):
     c = canvas.Canvas(overlay_pdf, pagesize=A4)
     width, height = A4
 
-    def draw_header_footer(page_number):
+    def draw_header_footer(page_number, is_right_side):
         # Set font for headers and footers
         c.setFont(font, 12)
 
@@ -982,24 +982,25 @@ def create_overlay_pdf(overlay_pdf, total_pages, first_page_number, book_name, a
             footer_y = 30  # Adjust this value to match the bottom text's baseline
             c.drawCentredString(width / 2, footer_y, f'{page_number}')
 
-        elif page_number % 2 == 0:
-            # Even pages: Draw header on the left
-            header_text = author_name
-            c.drawCentredString(width / 2, height - 20, header_text)
-            # Draw page number at the left header with some gap from the edge
-            c.drawString(62, height - 20, f'{page_number}')  # Adjusted x-coordinate for gap
-
-        else:
-            # Odd pages: Draw header on the right
+        elif is_right_side:
+            # Right-side pages (odd): Draw header on the right
             header_text = book_name
             c.drawCentredString(width / 2, height - 20, header_text)
             # Draw page number at the right header with some gap from the edge
             c.drawString(width - 84, height - 20, f'{page_number}')  # Adjusted x-coordinate for gap
 
+        else:
+            # Left-side pages (even): Draw header on the left
+            header_text = author_name
+            c.drawCentredString(width / 2, height - 20, header_text)
+            # Draw page number at the left header with some gap from the edge
+            c.drawString(62, height - 20, f'{page_number}')  # Adjusted x-coordinate for gap
+
     # Create pages for the overlay
     for i in range(total_pages):
         current_page_number = first_page_number + i  # This ensures continuous page numbering
-        draw_header_footer(current_page_number)
+        is_right_side = ((current_page_number - first_page_number) % 2 == 0) if first_page_position == "right" else ((current_page_number - first_page_number) % 2 != 0)
+        draw_header_footer(current_page_number, is_right_side)
         c.showPage()
 
     c.save()
