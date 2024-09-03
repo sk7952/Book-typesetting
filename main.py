@@ -11,7 +11,7 @@ from reportlab.pdfgen import canvas
 from pypdf import PdfReader, PdfWriter
 
 
-def get_response(chapter):
+def get_response(chapter,font_size):
     # Set up OpenAI API client
     
     api_key = st.secrets["Openai_api"]
@@ -916,7 +916,7 @@ This is the sample HTML : <!DOCTYPE html>
     Here is the target chapter: <<CHAPTER_TEXT>>
 """
     prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter)
-	prompt = prompt_template.replace("<<fontsize>>", font_size + "px")
+    prompt = prompt_template.replace("<<fontsize>>", font_size + "px")
     chat_completion = client.chat.completions.create(
         messages=[
             {
