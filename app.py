@@ -48,6 +48,7 @@ st.title("Chapter PDF Generator")
 Chapter_text = st.text_input('Enter the Chapter text:')
 author_name = st.text_input('Enter the Author Name:')
 book_name = st.text_input('Enter the Book Name:')
+font_size = st.text_input('Enter the Font Size')
 
 # Dropdown menu for font selection
 fonts = [
@@ -62,7 +63,7 @@ First_page_no = st.number_input('Enter the First Page Number:', min_value=0, max
 
 # Button to generate PDF
 if st.button("Generate PDF"):
-    response = get_response(Chapter_text)
+    response = get_response(Chapter_text, font_size)
     html_pth = save_response(response)
 
     main_pdf = 'out.pdf'
