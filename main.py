@@ -12,18 +12,18 @@ from pypdf import PdfReader, PdfWriter
 
 
 def get_response(chapter,font_size):
-    # Set up OpenAI API client
+  
+  # Set up OpenAI API client
     
-    api_key = st.secrets["Openai_api"]
-    client = OpenAI(
+  api_key = st.secrets["Openai_api"]
+  client = OpenAI(
         # This is the default and can be omitted
         api_key = api_key
     )
-
-    # Set up OpenAI model and prompt
-    model="gpt-4o-mini-2024-07-18"
-    
-    prompt_template = """
+  
+  # Set up OpenAI model and prompt
+  model="gpt-4o-mini-2024-07-18"
+  prompt_template = """
 
 You are an expert book formatter.
 This is a book chapter. your job is to output a typesetted file (USING HTML) which can be converted to a pdf book. So ensure that this book is formatted beautifully following all rules of formatting books. The book should be able to be read easily in a web browser. Include these features in html:
@@ -915,9 +915,8 @@ This is the sample HTML : <!DOCTYPE html>
 
     Here is the target chapter: <<CHAPTER_TEXT>>
 """
-    prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter)
-    prompt = prompt_template.replace("<<fontsize>>", font_size + "px")
-    chat_completion = client.chat.completions.create(
+  prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size + "px")
+  chat_completion = client.chat.completions.create(
         messages=[
             {
                 "role": "user",
@@ -927,8 +926,8 @@ This is the sample HTML : <!DOCTYPE html>
         model=model,
     )
 
-    response = chat_completion.choices[0].message.content
-    return response
+  response = chat_completion.choices[0].message.content
+  return response
 
 def save_response(response):
     html_pth = 'neww.html'
