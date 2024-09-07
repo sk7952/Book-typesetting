@@ -11,7 +11,7 @@ from reportlab.pdfgen import canvas
 from pypdf import PdfReader, PdfWriter
 
 
-def get_response(chapter,font_size):
+def get_response(chapter, font_size, lineheight):
   
   # Set up OpenAI API client
     
@@ -482,7 +482,7 @@ This is the sample HTML : <!DOCTYPE html>
         body {
             font-family: 'Times New Roman', serif;
             font-size: <<fontsize>>;
-            line-height: 1.3;
+            line-height: <<lineheight>>;
             text-align: justify;
             margin: 2rem 4rem;
         }
@@ -915,7 +915,7 @@ This is the sample HTML : <!DOCTYPE html>
 
     Here is the target chapter: <<CHAPTER_TEXT>>
 """
-  prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size + "px")
+  prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size + "px").replace("<<lineheight>>", lineheight)
   chat_completion = client.chat.completions.create(
         messages=[
             {
@@ -924,6 +924,7 @@ This is the sample HTML : <!DOCTYPE html>
             }
         ],
         model=model,
+	temperature = 0
     )
 
   response = chat_completion.choices[0].message.content
@@ -952,7 +953,7 @@ async def html_to_pdf_with_margins(html_file, output_pdf):
             'path': output_pdf,
             'format': 'A4',
             'margin': {
-                'top': '70px',
+                'top': '85px',
                 'bottom': '60px',
                 'left': '70px',
                 'right': '40px'
@@ -984,16 +985,16 @@ def create_overlay_pdf(overlay_pdf, total_pages, first_page_number, book_name, a
         elif is_right_side:
             # Right-side pages (odd): Draw header on the right
             header_text = book_name
-            c.drawCentredString(width / 2, height - 20, header_text)
+            c.drawCentredString(width / 2, height - 40, header_text)
             # Draw page number at the right header with some gap from the edge
-            c.drawString(width - 84, height - 20, f'{page_number}')  # Adjusted x-coordinate for gap
+            c.drawString(width - 84, height - 40, f'{page_number}')  # Adjusted x-coordinate for gap
 
         else:
             # Left-side pages (even): Draw header on the left
             header_text = author_name
-            c.drawCentredString(width / 2, height - 20, header_text)
+            c.drawCentredString(width / 2, height - 40, header_text)
             # Draw page number at the left header with some gap from the edge
-            c.drawString(62, height - 20, f'{page_number}')  # Adjusted x-coordinate for gap
+            c.drawString(62, height - 40, f'{page_number}')  # Adjusted x-coordinate for gap
 
     # Create pages for the overlay
     for i in range(total_pages):
