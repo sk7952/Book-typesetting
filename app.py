@@ -30,7 +30,7 @@ async def html_to_pdf_with_margins(html_file, output_pdf):
             'path': output_pdf,
             'format': 'A4',
             'margin': {
-                'top': '70px',
+                'top': '85px',
                 'bottom': '60px',
                 'left': '70px',
                 'right': '40px'
@@ -49,6 +49,7 @@ Chapter_text = st.text_input('Enter the Chapter text:')
 author_name = st.text_input('Enter the Author Name:')
 book_name = st.text_input('Enter the Book Name:')
 font_size = st.text_input('Enter the Font Size')
+line_height = st.text_input('Enter the Line Spacing')
 
 # Dropdown menu for font selection
 fonts = [
@@ -65,7 +66,7 @@ first_page_position = st.selectbox('Select First Page Position:', options)
 
 # Button to generate PDF
 if st.button("Generate PDF"):
-    response = get_response(Chapter_text, font_size)
+    response = get_response(Chapter_text, font_size, line_height)
     html_pth = save_response(response)
 
     main_pdf = 'out.pdf'
