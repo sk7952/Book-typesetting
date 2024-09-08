@@ -32,7 +32,7 @@ Indentation: Use a small indent (about 1 em) for the first line of each paragrap
 2. Line Length
 Optimal Line Length: Aim for 50-75 characters per line (including spaces). Lines that are too long or too short can make reading difficult.
 3.Line Spacing (Leading)
-Comfortable Reading: Set line spacing (leading) to around 120-145% of the font size. This prevents the text from looking too cramped or too loose.
+Comfortable Reading: The line spacing should be the same as given in the example.
 4. Proper margins and spaces. The top and Bottom margin for paragraph tag should be 0.1 and 0.2em.
 8. Left and Right margins are minimum so the pdf looks like a book.
 7.  Consistency
@@ -929,7 +929,7 @@ This is the sample HTML : <!DOCTYPE html>
 
   response = chat_completion.choices[0].message.content
   return response
-
+	
 def save_response(response):
     html_pth = 'neww.html'
     with open(html_pth, 'w', encoding='utf-8') as file:
