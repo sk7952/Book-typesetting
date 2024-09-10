@@ -31,7 +31,7 @@ async def html_to_pdf_with_margins(html_file, output_pdf):
             'path': output_pdf,
             'format': 'A4',
             'margin': {
-                'top': '70px',
+                'top': '85px',
                 'bottom': '60px',
                 'left': '70px',
                 'right': '40px'
