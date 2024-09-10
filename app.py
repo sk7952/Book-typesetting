@@ -76,6 +76,9 @@ if st.button("Generate PDF"):
     final_pdfs = []
     current_page_number = First_page_no  # Start from the user-defined first page number
 
+    # Set the initial page position for the first chapter
+    current_position = first_page_position  # "Right" or "Left" based on input
+
     for idx, chapter_text in enumerate(chapter_texts):
         response = get_response(chapter_text, font_size, line_height)
         html_pth = save_response(response)
@@ -91,7 +94,7 @@ if st.button("Generate PDF"):
         overlay_pdf = f"overlay_{idx+1}.pdf"
         
         # Create the overlay PDF with continuous page numbers
-        create_overlay_pdf(overlay_pdf, total_pages, current_page_number, book_name, author_name, font_style, first_page_position)
+        current_position = create_overlay_pdf(overlay_pdf, total_pages, current_page_number, book_name, author_name, font_style, current_position)
         
         final_pdf = f'final_{idx+1}.pdf'
         final_pdfs.append(final_pdf)
