@@ -969,7 +969,7 @@ def get_pdf_page_count(pdf_file):
         reader = PyPDF2.PdfReader(f)
         return len(reader.pages)
     
-def create_overlay_pdf(overlay_pdf, total_pages, starting_page_number, book_name, author_name, font, first_page_position="Right"):
+def create_overlay_pdf(overlay_pdf, total_pages, starting_page_number, book_name, author_name, font, current_position):
     c = canvas.Canvas(overlay_pdf, pagesize=A4)
     width, height = A4
 
@@ -989,9 +989,6 @@ def create_overlay_pdf(overlay_pdf, total_pages, starting_page_number, book_name
             c.drawCentredString(width / 2, height - 40, author_name)
             c.drawString(62, height - 40, f'{page_number}')  # Adjusted x-coordinate for gap
 
-    # Set the initial position based on the first_page_position
-    current_position = first_page_position
-
     # Create pages for the overlay
     for i in range(total_pages):
         current_page_number = starting_page_number + i  # Continuous page numbering
@@ -1003,6 +1000,9 @@ def create_overlay_pdf(overlay_pdf, total_pages, starting_page_number, book_name
         c.showPage()
 
     c.save()
+
+    # Return the final position for the next chapter
+    return current_position
 
 def overlay_headers_footers(main_pdf, overlay_pdf, output_pdf):
     pdf_writer = PdfWriter()
