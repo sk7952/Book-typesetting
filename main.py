@@ -15,11 +15,7 @@ def get_response(chapter, font_size, lineheight):
   
   # Set up OpenAI API client
     
-  client = OpenAI(
-  api_key = st.secrets["Openai_api"]
-        # This is the default and can be omitted
-        api_key = api_key
-    )
+  client = OpenAI(api_key = st.secrets["Openai_api"])
   font_size_px = f"{font_size}px"
   line_height_val = str(lineheight)
   max_chars = 37000
