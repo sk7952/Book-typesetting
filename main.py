@@ -46,7 +46,7 @@ Keep this in mind : Left and Right margins are minimum.
 12. The chapter heading should be centrally aligned and start on one fourth level of the new page with a margin on the top.
 13. There should be some additional space between the chapter heading and the first paragraph.
 
-I am giving you a sample chapter and its HTML output for your reference. Your outputs should be in that simialr manner.
+I am giving you a sample chapter and its HTML output for your reference. Your outputs should be in that simialr manner. Absolutely Do not use any text from the example in the output.
     This is the sample book : : Chapter 1 - Charred Dreams / Cigarettes &amp; Serenading
 Excerpts from Dhruv&#39;s journal:
 I can smell winter in the air
@@ -382,7 +382,8 @@ This is the sample HTML : <!DOCTYPE html>
     <p>“Perfect, when and where?”</p>
     <p>“Umm… tomorrow, my place, around six?”</p>
     <p>“Sounds great. I can't wait!”</p>
-    
+    </body>
+    </html>
     Here is the target chapter: <<CHAPTER_TEXT>>
 """
         prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
@@ -428,7 +429,7 @@ Keep this in mind : Left and Right margins are minimum.
 12. The chapter heading should be centrally aligned and start on one fourth level of the new page with a margin on the top.
 13. There should be some additional space between the chapter heading and the first paragraph.
 
-I am giving you a sample chapter and its HTML output for your reference. Your outputs should be in that simialr manner.
+I am giving you a sample chapter and its HTML output for your reference. Your outputs should be in that simialr manner.  Absolutely Do not use any text from the example in the output.
     This is the sample book : : Chapter 1 - Charred Dreams / Cigarettes &amp; Serenading
 Excerpts from Dhruv&#39;s journal:
 I can smell winter in the air
@@ -764,7 +765,8 @@ This is the sample HTML : <!DOCTYPE html>
     <p>“Perfect, when and where?”</p>
     <p>“Umm… tomorrow, my place, around six?”</p>
     <p>“Sounds great. I can't wait!”</p>
-    
+    </body>
+    </html>
     Here is the target chapter: <<CHAPTER_TEXT>>
         """
         prompt_1 = prompt_template_1.replace("<<CHAPTER_TEXT>>", first_part).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
