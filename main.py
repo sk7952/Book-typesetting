@@ -12,7 +12,6 @@ from pypdf import PdfReader, PdfWriter
 
 
 def get_response(chapter, font_size, lineheight):
-  
   # Set up OpenAI API client
     
   client = OpenAI(api_key = st.secrets["Openai_api"])
@@ -23,10 +22,8 @@ def get_response(chapter, font_size, lineheight):
   model="gpt-4o-mini-2024-07-18"
   # Split the chapter into two parts based on character count
   if len(chapter) <= max_chars:
-        # If the chapter is within the limit, process normally
-  	prompt_template = """
-
-You are an expert book formatter.
+    # If the chapter is within the limit, process normally
+    prompt_template = """You are an expert book formatter.
 This is a book chapter. your job is to output a typesetted file (USING HTML) which can be converted to a pdf book. So ensure that this book is formatted beautifully following all rules of formatting books. The book should be able to be read easily in a web browser. Include these features in html:
 1. Paragraph Formatting
 Indentation: Use a small indent (about 1 em) for the first line of each paragraph, or opt for a larger spacing between paragraphs if not using indentation.
@@ -914,10 +911,9 @@ This is the sample HTML : <!DOCTYPE html>
     <p>“Okay, just go take a shower,” Arnav resigned. </p>
     <p>“Arnav please,
 
-    Here is the target chapter: <<CHAPTER_TEXT>>
-"""
-  	prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
-  	chat_completion = client.chat.completions.create(
+    Here is the target chapter: <<CHAPTER_TEXT>>"""
+    prompt = prompt_template.replace("<<CHAPTER_TEXT>>", chapter).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
+    chat_completion = client.chat.completions.create(
             messages=[
                 {
                     "role": "user",
@@ -927,9 +923,8 @@ This is the sample HTML : <!DOCTYPE html>
             model=model,
             temperature=0
         )
-
-  	response = chat_completion.choices[0].message.content
-        return response
+    response = chat_completion.choices[0].message.content
+    return response
 
   elif(len(chapter) > max_chars and len(chapter) <= 74000):
         # If the chapter exceeds the limit, split into two parts
@@ -2803,9 +2798,9 @@ This is the sample HTML : <!DOCTYPE html>
 
     Here is the target chapter: <<CHAPTER_TEXT>>
         """
-      prompt_1 = prompt_template_1.replace("<<CHAPTER_TEXT>>", first_part).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
+        prompt_1 = prompt_template_1.replace("<<CHAPTER_TEXT>>", first_part).replace("<<fontsize>>", font_size_px).replace("<<lineheight>>", line_height_val)
 
-      chat_completion_1 = client.chat.completions.create(
+        chat_completion_1 = client.chat.completions.create(
           messages=[
               {
                   "role": "user",
@@ -2816,10 +2811,10 @@ This is the sample HTML : <!DOCTYPE html>
           temperature=0
       )
 
-      response_1 = chat_completion_1.choices[0].message.content
+        response_1 = chat_completion_1.choices[0].message.content
 
       # Process the second part with a modified prompt (no HTML headers)
-      prompt_template_2 = """
+        prompt_template_2 = """
       You are an expert book formatter.
       Continue formatting the book chapter into HTML following the same styles as before. Do not include the <!DOCTYPE html> declaration, <html>, <head>, or <body> tags. Start directly with the paragraph tags and ensure consistency in formatting with the previous part.
       Font size = <<fontsize>>
