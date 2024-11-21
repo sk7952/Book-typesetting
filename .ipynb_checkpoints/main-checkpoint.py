@@ -14,7 +14,7 @@ def get_response(chapter):
     client = OpenAI(
         # This is the default and can be omitted
         
-        api_key = "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"
+        api_key = st.secrets["Openai_api"]
     )
 
     # Set up OpenAI model and prompt
